@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="xoriant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Xoriant | Challenge</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+<body ng-controller="myCtrl">
+
+  <header>
+    <h2>Hacker News</h2>
+    <h4>Best Hacker News Articles</h4>
+  </header>
+
+  <div class="mainbody">
+    <!-- Filters -->
+    <div class="innerbody">
+      <div class="filteredit">
+        <button class="editbtn" ng-click="togglePoints=!togglePoints"><i class="fas fa-filter"></i> Sort By Points</button>
+        <button class="editbtn" ng-click="toggleComments=!toggleComments"><i class="fas fa-filter"></i> Sort By Comments</button>
+        <input class="searchedit"  placeholder="Search By Keywords" ng-model="searchText">
+      </div>
+    </div>
+
+
+    <!-- all articles -->
+    <div class="innerbody">
+        <div class="articles" ng-if="$index > 0" ng-repeat="art in articles | filter : searchText | orderBy : !togglePoints ? 'num_points' : '-num_points' | orderBy : !toggleComments ? 'num_comments' : '-num_comments'" >
+          <div class="floats">
+            <span class="muted">{{$index}}.<i class=" muted fas fa-caret-up"></i></span>
+          </div>
+
+          <div class="floats marginadd">
+            <span><strong><a href="{{art.url}}" target="_blank" style="color:green">{{art.title}}</a></strong></span><br/>
+            <span class="muted">{{art.num_points}} points by {{art.author}} | {{art.num_comments}} comments | Posted at {{art.created_at}}</span>
+          </div>
+          <br/>
+        </div>
+    </div>
+  </div>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+  <script src="controller/controller.js"></script>
+</body>
+</html>
